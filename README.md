@@ -13,7 +13,7 @@ This is a simple **FastAPI** application for managing customers, products, and o
 To run this project locally, follow the steps below:
 
 ### 1. Clone the Repository
-git clone https://github.com/yourusername/orders-management.git
+https://github.com/Radhika12-dev/Minicart.git
 
 # Create a virtual environment
 python3 -m venv venv
