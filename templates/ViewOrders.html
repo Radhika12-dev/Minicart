@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Orders</title>
+</head>
+<body>
+    <h1>Orders List</h1>
+    <ul id="orders-list"></ul>
+
+    <script>
+        async function fetchOrders() {
+            const response = await fetch('/orders/');
+            const orders = await response.json();
+
+            const list = document.getElementById('orders-list');
+            orders.forEach(order => {
+                const item = document.createElement('li');
+                const productNames = order.products.map(p => p.name).join(", ");
+                item.textContent = `Order #${order.id} | Customer: ${order.customer.name} | Products: ${productNames} | Total: ₹${order.total_price}`;
+                list.appendChild(item);
+            });
+        }
+
+        fetchOrders();
+    </script>
+</body>
+</html>

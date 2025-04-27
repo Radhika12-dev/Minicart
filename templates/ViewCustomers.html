@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Customers</title>
+</head>
+<body>
+    <h1>Customers List</h1>
+    <ul id="customers-list"></ul>
+
+    <script>
+        async function fetchCustomers() {
+            const response = await fetch('/customers/');
+            const customers = await response.json();
+
+            const list = document.getElementById('customers-list');
+            customers.forEach(customer => {
+                const item = document.createElement('li');
+                item.textContent = `${customer.name} (${customer.email})`;
+                list.appendChild(item);
+            });
+        }
+
+        fetchCustomers();
+    </script>
+</body>
+</html>

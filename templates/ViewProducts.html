@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Products</title>
+</head>
+<body>
+    <h1>Products List</h1>
+    <ul id="products-list"></ul>
+
+    <script>
+        async function fetchProducts() {
+            const response = await fetch('/products/');
+            const products = await response.json();
+
+            const list = document.getElementById('products-list');
+            products.forEach(product => {
+                const item = document.createElement('li');
+                item.textContent = `${product.name} - ₹${product.price}`;
+                list.appendChild(item);
+            });
+        }
+
+        fetchProducts();
+    </script>
+</body>
+</html>

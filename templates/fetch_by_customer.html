@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Fetch Orders by Customer</title>
+</head>
+<body>
+    <h1>Fetch Orders by Customer Name</h1>
+    <form onsubmit="fetchByCustomer(); return false;">
+        Customer Name: <input type="text" id="customer-name" name="customer_name" required>
+        <button type="submit">Fetch Orders</button>
+    </form>
+
+    <h2>Results:</h2>
+    <ul id="customer-orders"></ul>
+
+    <script>
+        async function fetchByCustomer() {
+            const name = document.getElementById('customer-name').value.trim();
+            const response = await fetch(`/orders/customer/${encodeURIComponent(name)}`);
+            const orders = await response.json();
+            const list = document.getElementById('customer-orders');
+            list.innerHTML = '';  // clear old results
+            if (!Array.isArray(orders) || orders.length === 0) {
+                list.innerHTML = '<li>No orders found for this customer.</li>';
+                return;
+            }
+            orders.forEach(order => {
+                const productNames = order.products.map(p => p.name).join(", ");
+                const li = document.createElement('li');
+                li.textContent = `Order #${order.id} | Total: ₹${order.total_amount} | Products: ${productNames}`;
+                list.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
